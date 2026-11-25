@@ -22,6 +22,10 @@ def main() -> None:
         raise SystemExit(f"word must be 1-30 characters, got {chars}")
     if any(ch.isspace() for ch in WORD):
         raise SystemExit("entry must be exactly one word, no spaces")
+    if not WORD.isalpha():
+        raise SystemExit("entry must be one word of letters only, no punctuation or digits")
+    if any(ord(ch) < 32 for ch in WORD):
+        raise SystemExit("entry must not contain control characters")
     if WORD.strip() != WORD:
         raise SystemExit("word must not have leading or trailing whitespace")
     os.makedirs("/output", exist_ok=True)
